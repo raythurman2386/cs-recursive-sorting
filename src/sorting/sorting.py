@@ -1,29 +1,46 @@
+from random import shuffle
+
 # TO-DO: complete the helper function below to merge 2 sorted arrays
-def merge(arrA, arrB):
-    if len(arrA) == 0:
-        return arrB
+my_arr = [num for num in range(1, 26)]
+shuffle(my_arr)
+print("Starting Array: ", my_arr)
 
-    if len(arrB) == 0:
-        return arrA
 
+def merge(left, right):
+    # If the left array is 0 return the right array
+    if len(left) == 0:
+        return right
+
+    # If the right array is 0 return the left array
+    if len(right) == 0:
+        return left
+
+    # instantiate the returning array, and the indexes
     result = []
     index_left = index_right = 0
 
     # Your code here
-    while len(result) < len(arrA) + len(arrB):
-        if arrA[index_left] <= arrB[index_right]:
-            result.append(arrA[index_left])
+    # go through both arrays till all elements
+    # make it into the result array
+    while len(result) < len(left) + len(right):
+        # Decide which element needs to be sorted
+        # add that item to the array
+        if left[index_left] <= right[index_right]:
+            result.append(left[index_left])
             index_left += 1
         else:
-            result.append(arrB[index_right])
+            result.append(right[index_right])
             index_right += 1
 
-        if index_right == len(arrB):
-            result += arrA[index_left:]
+        # If we reach the end of the array, add
+        # remaining elements to the results and
+        # break out of the loop
+        if index_right == len(right):
+            result += left[index_left:]
             break
 
-        if index_left == len(arrA):
-            result += arrB[index_right:]
+        if index_left == len(left):
+            result += right[index_right:]
             break
 
     return result
@@ -36,13 +53,15 @@ def merge_sort(arr):
     if len(arr) < 2:
         return arr
 
+    # Find the midpoint of the array
     midpoint = len(arr) // 2
 
-    return merge(arrA=merge_sort(arr[:midpoint]), arrB=merge_sort(arr[midpoint:]))
+    # recursively run the helper function merge()
+    # split the arrays into left and right depending on the midpoint
+    return merge(left=merge_sort(arr[:midpoint]), right=merge_sort(arr[midpoint:]))
 
 
-my_arr = [3, 2, 5, 6, 2, 9, 2, 1, 8, 9]
-print(merge_sort(my_arr))
+print("Ending Array: ", merge_sort(my_arr))
 
 # STRETCH: implement the recursive logic for merge sort in a way that doesn't
 # utilize any extra memory
