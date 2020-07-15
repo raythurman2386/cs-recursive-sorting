@@ -1,9 +1,8 @@
 from random import shuffle
 
 # TO-DO: complete the helper function below to merge 2 sorted arrays
-my_arr = [num for num in range(1, 26)]
+my_arr = [num for num in range(1, 100)]
 shuffle(my_arr)
-print("Starting Array: ", my_arr)
 
 
 def merge(left, right):
@@ -60,8 +59,6 @@ def merge_sort(arr):
     # split the arrays into left and right depending on the midpoint
     return merge(left=merge_sort(arr[:midpoint]), right=merge_sort(arr[midpoint:]))
 
-
-print("Ending Array: ", merge_sort(my_arr))
 
 # STRETCH: implement the recursive logic for merge sort in a way that doesn't
 # utilize any extra memory

@@ -24,4 +24,17 @@ def binary_search(arr, target, start, end):
 # or iteratively
 def agnostic_binary_search(arr, target):
     # Your code here
-    pass
+    middle = len(arr) // 2
+    index = arr.index(arr[middle])
+    guess = arr[middle]
+
+    if guess == target:
+        return index
+
+    left = arr[:middle]
+    right = arr[middle:]
+
+    if guess is not target:
+        agnostic_binary_search(left, target)
+        agnostic_binary_search(right, target)
+        return
